@@ -1,0 +1,66 @@
+﻿@model BankAccountManagements.Models.User
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Welcome, @Model.Name</h2>
+
+<h3>Your Accounts:</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Account Type</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var account in Model.Accounts)
+        {
+            <tr>
+                <td>@account.Type</td>
+                <td>@account.Balance</td>
+            </tr>
+}
+    </tbody>
+</table>
+
+<h3>Transfer Money</h3>
+<form method="post" action="@Url.Action("Transfer", "Bank")">
+    <input type="hidden" name="userName" value="@Model.Name" />
+    <label>From Account:</label>
+    <select name="fromAccountId" class="form-control">
+        @foreach (var account in Model.Accounts)
+        {
+            <option value="@account.Id">@account.Type - @account.Balance</option>
+}
+    </select>
+    <label>To Account:</label>
+    <select name="toAccountId" class="form-control">
+        @foreach (var account in Model.Accounts)
+        {
+            <option value="@account.Id">@account.Type - @account.Balance</option>
+}
+    </select>
+    <label>Amount:</label>
+    <input type="number" name="amount" class="form-control" step="0.01" />
+    <button type="submit" class="btn btn-primary">Transfer</button>
+</form>
+
+<h3>Request a Loan</h3>
+<form method="post" action="@Url.Action("RequestLoan", "Bank")">
+    <input type="hidden" name="userName" value="@Model.Name" />
+    <label>Loan Amount:</label>
+    <input type="number" name="amount" class="form-control" step="0.01" max="10000" />
+    <label>Duration (Years):</label>
+    <select name="duration" class="form-control">
+        <option value="1">1 Year</option>
+        <option value="3">3 Years</option>
+        <option value="5">5 Years</option>
+    </select>
+    <button type="submit" class="btn btn-success">Apply for Loan</button>
+</form>
+
+<a href="@Url.Action("ConfigureInterest", "Bank")" class="btn btn-info">Configure Interest Rates</a>
