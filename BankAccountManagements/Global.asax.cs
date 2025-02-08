@@ -12,10 +12,19 @@ namespace BankAccountManagements
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            try
+            {
+
+                AreaRegistration.RegisterAllAreas();
+                FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+                RouteConfig.RegisterRoutes(RouteTable.Routes);
+                BundleConfig.RegisterBundles(BundleTable.Bundles);
+            }
+            catch (Exception ex)
+            {
+                // The request should be redirected to "page not found" error and the error should be logged 
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
     }
 }

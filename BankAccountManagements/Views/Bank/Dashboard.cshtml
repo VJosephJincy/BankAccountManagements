@@ -47,6 +47,7 @@
     <label>Amount:</label>
     <input type="number" name="amount" class="form-control" step="0.01" />
     <button type="submit" class="btn btn-primary">Transfer</button>
+    <p style="color:green;">@ViewBag.ErrorMessage</p>
 </form>
 
 <h3>Request a Loan</h3>
@@ -62,5 +63,5 @@
     </select>
     <button type="submit" class="btn btn-success">Apply for Loan</button>
 </form>
-
+<p style="color:green;">@ViewBag.Message</p>
 <a href="@Url.Action("ConfigureInterest", "Bank")" class="btn btn-info">Configure Interest Rates</a>

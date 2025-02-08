@@ -7,7 +7,7 @@ using System.Web;
 namespace BankAccountManagements.Services
 {
     public static class InterestCalculator
-    {
+    {       
         private static List<InterestRate> interestRates = new()
         {
             new InterestRate { CreditMin = 20, CreditMax = 50, Duration = 1, Rate = 20 },
