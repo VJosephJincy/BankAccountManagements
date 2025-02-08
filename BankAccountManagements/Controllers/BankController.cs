@@ -18,11 +18,17 @@ namespace BankAccountManagements.Controllers
         [HttpPost]
         public ActionResult Transfer(string userName, int fromAccountId, int toAccountId, decimal amount)
         {
-            if (!_bankService.Transfer(userName, fromAccountId, toAccountId, amount))
+            if (amount > 0)
             {
-                //Error - Cannot transfer to the same account.
-                ViewBag.ErrorMessage = "User cannot transfer to the same account";
+                if (!_bankService.Transfer(userName, fromAccountId, toAccountId, amount))
+                {
+                    //Error - Cannot transfer to the same account.
+                    ViewBag.ErrorMessage = "User cannot transfer to the same account";
+                }
             }
+            else
+                ViewBag.ErrorMessage = "Please enter the amount greater than zero";
+
             return View("Dashboard", _bankService.GetUserByName(userName));
         }
 
@@ -31,10 +37,15 @@ namespace BankAccountManagements.Controllers
         /// </summary>
         public ActionResult RequestLoan(string userName, decimal amount, int duration)
         {
-            if (!_bankService.RequestLoan(userName, amount, duration))
+            if (amount > 0)
+            {
+                if (!_bankService.RequestLoan(userName, amount, duration))
             {
                 ViewBag.Message = "Loan denied due to low credit rating";
             }
+            }
+            else
+                ViewBag.Message = "Please enter the amount greater than zero";
             return View("Dashboard", _bankService.GetUserByName(userName));
         }
 

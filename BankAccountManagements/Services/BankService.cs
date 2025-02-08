@@ -13,7 +13,7 @@ namespace BankAccountManagements.Services
         {
             new User
             {
-                Name = "Eric",
+                Name = "Bob",
                 CreditRating = 15,
                 Accounts = new List<Account>
                   {
@@ -22,7 +22,7 @@ namespace BankAccountManagements.Services
             },
             new User
             {
-                Name = "Jincy",
+                Name = "Jim",
                 CreditRating = 45,
                 Accounts = new List<Account>
                 {
@@ -31,7 +31,7 @@ namespace BankAccountManagements.Services
             },
             new User
             {
-                Name = "Kim",
+                Name = "Anne",
                 CreditRating = 80,
                 Accounts = new List<Account>
                  {
@@ -58,6 +58,10 @@ namespace BankAccountManagements.Services
                     fromAccount.Balance -= amount;
                     toAccount.Balance += amount;
                     return true;
+                }
+                else
+                {
+                    ////Error -Requested money is not available in the account 
                 }
             }
             else

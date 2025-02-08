@@ -29,11 +29,11 @@ namespace BankAccountManagements.Tests
         public void GetUserByName_WhenUserExists_ShouldReturnUser()
         {
             // Act
-            User user = _bankService.GetUserByName("Jincy");
+            User user = _bankService.GetUserByName("Jim");
 
             // Assert
             Assert.That(user, Is.Not.Null);
-            Assert.That(user.Name, Is.EqualTo("Jincy"));
+            Assert.That(user.Name, Is.EqualTo("Jim"));
         }
 
         [Test]
@@ -50,13 +50,13 @@ namespace BankAccountManagements.Tests
         public void Transfer_WhenSufficientBalance_ShouldTransferMoney()
         {
             // Arrange
-            User user = _bankService.GetUserByName("Kim");
+            User user = _bankService.GetUserByName("Anne");
             var account1 = new Account { Id = 1, Balance = 1000, Type = "Current" };
             var account2 = new Account { Id = 2, Balance = 500, Type = "Savings" };
             user.Accounts = new List<Account> { account1, account2 };
 
             // Act
-            bool result = _bankService.Transfer("Kim", 1, 2, 200);
+            bool result = _bankService.Transfer("Anne", 1, 2, 200);
 
             // Assert
             Assert.That(result, Is.True);
@@ -68,13 +68,13 @@ namespace BankAccountManagements.Tests
         public void Transfer_WhenInsufficientBalance_ShouldFail()
         {
             // Arrange
-            User user = _bankService.GetUserByName("Kim");
+            User user = _bankService.GetUserByName("Anne");
             var account1 = new Account { Id = 1, Balance = 100, Type = "Current" };
             var account2 = new Account { Id = 2, Balance = 500, Type = "Savings" };
             user.Accounts = new List<Account> { account1, account2 };
 
             // Act
-            bool result = _bankService.Transfer("Kim", 1, 2, 200); // Not enough balance
+            bool result = _bankService.Transfer("Anne", 1, 2, 200); // Not enough balance
 
             // Assert
             Assert.That(result, Is.False);
@@ -86,7 +86,7 @@ namespace BankAccountManagements.Tests
         public void RequestLoan_WhenCreditRatingIsLow_ShouldDenyLoan()
         {
             // Act
-            bool result = _bankService.RequestLoan("Eric", 5000, 3); // Eric has Credit Rating 15 (<20)
+            bool result = _bankService.RequestLoan("Bob", 5000, 3); // Bob has Credit Rating 15 (<20)
 
             // Assert
             Assert.That(result, Is.False);
@@ -96,11 +96,11 @@ namespace BankAccountManagements.Tests
         public void RequestLoan_WhenEligible_ShouldApproveLoan()
         {
             // Arrange
-            User user = _bankService.GetUserByName("Jincy"); // Jincy has Credit Rating 45
+            User user = _bankService.GetUserByName("Jim"); // Jim has Credit Rating 45
             decimal initialBalance = user.Accounts.Count > 0 ? user.Accounts[0].Balance : 0;
 
             // Act
-            bool result = _bankService.RequestLoan("Jincy", 5000, 3);
+            bool result = _bankService.RequestLoan("Jim", 5000, 3);
 
             // Assert
             Assert.That(result, Is.True);

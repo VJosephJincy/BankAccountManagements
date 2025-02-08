@@ -6,6 +6,7 @@
 
 
 <h2>Welcome, @Model.Name</h2>
+<a style="float: right" href="@Url.Action("ConfigureInterest", "Bank")" class="btn btn-info">Configure Interest Rates</a>
 
 <h3>Your Accounts:</h3>
 
@@ -45,7 +46,7 @@
         }
     </select>
     <label>Amount:</label>
-    <input type="number" name="amount" class="form-control" step="0.01" />
+    <input type="number" name="amount" class="form-control" step="0.01" required />
     <button type="submit" class="btn btn-primary">Transfer</button>
     <p style="color:green;">@ViewBag.ErrorMessage</p>
 </form>
@@ -54,7 +55,7 @@
 <form method="post" action="@Url.Action("RequestLoan", "Bank")">
     <input type="hidden" name="userName" value="@Model.Name" />
     <label>Loan Amount:</label>
-    <input type="number" name="amount" class="form-control" step="0.01" max="10000" />
+    <input type="number" name="amount" class="form-control" step="0.01" max="10000" required />
     <label>Duration (Years):</label>
     <select name="duration" class="form-control">
         <option value="1">1 Year</option>
@@ -64,4 +65,4 @@
     <button type="submit" class="btn btn-success">Apply for Loan</button>
 </form>
 <p style="color:green;">@ViewBag.Message</p>
-<a href="@Url.Action("ConfigureInterest", "Bank")" class="btn btn-info">Configure Interest Rates</a>
+
