@@ -11,20 +11,18 @@ namespace BankAccountManagements.Tests
     [TestFixture]
     public class BankServiceTests
     {
-        private BankService _bankService;
 
+        private BankService _bankService;
+        /// <summary>
+        /// Setup method to initialize BankService before each test.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
             _bankService = new BankService();
         }
 
-        [TearDown]
-        public void Teardown()
-        {
-            _bankService = null;
-        }
-
+        /// Tests if GetUserByName returns the correct user when the user exists.
         [Test]
         public void GetUserByName_WhenUserExists_ShouldReturnUser()
         {
@@ -36,16 +34,18 @@ namespace BankAccountManagements.Tests
             Assert.That(user.Name, Is.EqualTo("Jim"));
         }
 
+        /// Tests if GetUserByName returns null when the user does not exist.
         [Test]
         public void GetUserByName_WhenUserDoesNotExist_ShouldReturnNull()
         {
             // Act
-            User user = _bankService.GetUserByName("UnknownUser");
+            User user = _bankService.GetUserByName("jincy");
 
             // Assert
             Assert.That(user, Is.Null);
         }
 
+        /// Tests if Transfer succeeds when there is a sufficient balance.
         [Test]
         public void Transfer_WhenSufficientBalance_ShouldTransferMoney()
         {
@@ -64,6 +64,7 @@ namespace BankAccountManagements.Tests
             Assert.That(account2.Balance, Is.EqualTo(700));
         }
 
+        /// Tests if Transfer fails when there is an insufficient balance.
         [Test]
         public void Transfer_WhenInsufficientBalance_ShouldFail()
         {
@@ -82,6 +83,7 @@ namespace BankAccountManagements.Tests
             Assert.That(account2.Balance, Is.EqualTo(500)); // Should remain unchanged
         }
 
+        /// Tests if RequestLoan denies a loan when the credit rating is too low.
         [Test]
         public void RequestLoan_WhenCreditRatingIsLow_ShouldDenyLoan()
         {
@@ -92,6 +94,7 @@ namespace BankAccountManagements.Tests
             Assert.That(result, Is.False);
         }
 
+        /// Tests if RequestLoan approves a loan when the credit rating is sufficient.
         [Test]
         public void RequestLoan_WhenEligible_ShouldApproveLoan()
         {
@@ -107,6 +110,7 @@ namespace BankAccountManagements.Tests
             Assert.That(user.Accounts.Exists(a => a.Type == "Loan"), Is.True);
         }
 
+        /// Tests if GetInterestRate returns the correct interest rate for a given credit rating and duration.
         [Test]
         public void GetInterestRate_WhenValidCreditAndDuration_ShouldReturnCorrectRate()
         {
@@ -117,6 +121,7 @@ namespace BankAccountManagements.Tests
             Assert.That(interestRate, Is.EqualTo(15));
         }
 
+        /// Tests if GetInterestRate returns zero when no matching rate is found.
         [Test]
         public void GetInterestRate_WhenInvalidCredit_ShouldReturnZero()
         {
